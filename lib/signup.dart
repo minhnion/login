@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/login.dart'; // Kiểm tra nếu login.dart đã được import chính xác.
-
+import 'package:http/http.dart' as http;
 class Signup extends StatefulWidget {
   const Signup({super.key});
 
@@ -10,7 +10,10 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   bool _showpass = false;
-
+  var _username= TextEditingController();
+  var _email= TextEditingController();
+  var _password= TextEditingController();
+  var _confirmpass= TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,8 +21,8 @@ class _SignupState extends State<Signup> {
       home: Scaffold(
           body: Stack(
             children: [
-                 Image.asset(
-                  'assets/nen.jpg',
+                 Image.network(
+                  'https://img.freepik.com/free-vector/blue-fluid-background-frame_53876-99019.jpg?semt=ais_hybrid',
                   fit: BoxFit.cover,
                    width: double.infinity,
                    height: double.infinity,
@@ -27,28 +30,30 @@ class _SignupState extends State<Signup> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(height: 100), // Khoảng cách phía trên
-                    ListTile(
+                    const SizedBox(height: 100), // Khoảng cách phía trên
+                    const ListTile(
                       leading: Icon(
                         Icons.account_circle,
                         size: 60,
                       ),
                       title: Text(
-                        'Register a new account',
+                        'Register',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                             fontSize: 40),
                       ),
                     ),
+                    SizedBox(height: 30,),
                     Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       child: TextFormField(
-                        style: TextStyle(
+                        controller: _username,
+                        style: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                             hintText: 'USERNAME',
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.black54,
                             ),
                             //filled: true,
@@ -60,19 +65,39 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      child: TextFormField(
+                        controller: _email,
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                            hintText: 'EMAIL',
+                            hintStyle: const TextStyle(
+                              color: Colors.black54,
+                            ),
+                            //filled: true,
+                            //fillColor: Colors.cyanAccent,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            )
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: [
                           TextFormField(
-                            style: TextStyle(
+                            controller: _password,
+                            style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                             obscureText: !_showpass,
                             decoration: InputDecoration(
                                 hintText: 'PASSWORD',
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                     color: Colors.black54, fontSize: 15),
                                 // filled: true,
                                 // fillColor: Colors.cyanAccent,
@@ -91,19 +116,20 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       child: Stack(
                         alignment: Alignment.centerRight,
                         children: [
                           TextFormField(
-                            style: TextStyle(
+                            controller: _confirmpass,
+                            style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black),
                             obscureText: !_showpass,
                             decoration: InputDecoration(
                                 hintText: 'CONFIRM PASSWORD',
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                     color: Colors.black54, fontSize: 15),
                                 // filled: true,
                                 // fillColor: Colors.cyanAccent,
@@ -127,15 +153,16 @@ class _SignupState extends State<Signup> {
                         width: 200,
                         child: TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Login()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Login()));
+                              register(_username.text, _email.text, _password.text, _confirmpass.text);
                             },
                             style: TextButton.styleFrom(
                               backgroundColor: Colors.grey,
                             ),
-                            child: Text(
+                            child: const Text(
                               'Sign up',
                               style: TextStyle(color: Colors.black, fontSize: 30),
                             )),
@@ -147,6 +174,11 @@ class _SignupState extends State<Signup> {
             ],
           )),
     );
+  }
+  void register(user,email, password, confirmpass){
+
+
+    
   }
 
   void showornot() {

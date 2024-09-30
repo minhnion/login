@@ -4,6 +4,6 @@ import 'package:login/signup.dart';
 import 'login.dart';
 
 void main(){
-  runApp(Login());
+  runApp(Signup());
 }
 

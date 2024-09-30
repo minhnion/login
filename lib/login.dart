@@ -15,6 +15,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool _showpass=false;
 
+  void login(username,password) async{
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +26,7 @@ class _LoginState extends State<Login> {
       home: Scaffold(
         body: Stack(
           children: [
-            Image.asset('assets/nen.jpg',
+            Image.network('https://img.freepik.com/free-vector/blue-fluid-background-frame_53876-99019.jpg?semt=ais_hybrid',
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,
@@ -38,7 +42,7 @@ class _LoginState extends State<Login> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.asset(
-                          'assets/music.jpg',
+                          'assets/apartment.jpg',
                           fit: BoxFit.cover,
                         ),
                       )
